@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './data/reviews.db3'
+      filename: './data/foodieFun.db3'
     },
     useNullAsDefault: true,
     migrations: {
@@ -19,7 +19,7 @@ module.exports = {
   staging: {
     client: 'postgresql',
     connection: {
-      database: 'reviews',
+      database: 'foodieFun',
       user:     'username',
       password: 'password'
     },
@@ -35,7 +35,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'reviews',
+      database: 'foodieFun',
       user:     'username',
       password: 'password'
     },

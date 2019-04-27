@@ -1,22 +1,19 @@
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
 
-const reviews = require('../reviews/reviewsModel.js');
+const configureRoutes = require('../config/routes.js');
 
 const server = express();
-const multer = require('multer');
-const cors = require('cors');
 
-server.use(express.json());
+server.use(helmet());
 server.use(cors());
+server.use(express.json());
 
-server.get('/', async (req, res) => {
-  res.status(200).json({ message: 'I am Son of Hal and I am always watching!' });
-});
+configureRoutes(server);
 
-server.get('/reviews', async (req, res) => {
-  const rows = await reviews.get();
-
-  res.status(200).json(rows);
-});
+server.get('/', (req, res) => {
+  res.send("I am Son of Hal ... I am always watching");
+})
 
 module.exports = server;
