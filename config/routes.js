@@ -9,7 +9,7 @@ const users = require('./users-model.js');
 module.exports = server => {
   server.post('/api/register', register);
   server.post('/api/login', login);
-  server.get('/api/reviews', authenticate, getReviews);
+  server.get('/api/reviews/:id', authenticate, getReviews);
 };
 
 function register(req, res) {
@@ -17,7 +17,7 @@ function register(req, res) {
   const hash = bcrypt.hashSync(user.password, 12); // 2 ^ n
   user.password = hash;
 
-  users.add(user)
+  users.addUser(user)
     .then(saved => {
       res.status(201).json(saved);
     })
@@ -46,16 +46,13 @@ function login(req, res) {
 }
 
 function getReviews(req, res) {
-  const requestOptions = {
-    headers: { accept: 'application/json' },
-  };
+  const { id } = req.params;
 
-  axios
-    .get('https://icanhazdadjoke.com/search', requestOptions)
-    .then(response => {
-      res.status(200).json(response.data.results);
+  reviews.getReviewByUserId({ userId })
+    .then(review => {
+      res.status(200).json(review.data.results)
     })
     .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Jokes', error: err });
+      res.status(500).json({ message: 'Error Fetching Reviews', error: err });
     });
 }

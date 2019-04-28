@@ -1,3 +1,4 @@
+const express = require('express');
 const db = require('../data/dbConfig.js');
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
   findById,
   getAllReviews,
   deleteReview,
-  getReviewById,
+  getReviewByUserId,
 };
 
 function find() {
@@ -24,7 +25,7 @@ async function addReview(review) {
   return findById(id);
 }
 
-function findById(id) {
+function findBy(id) {
   return db('reviews')
     .where({ id })
     .first();
@@ -40,7 +41,7 @@ function deleteReview(id) {
     .del();
 }
 
-function getReviewById(id) {
+function getReviewByUserId(id) {
   return db('reviews')
     .where('userId', id)
 }
