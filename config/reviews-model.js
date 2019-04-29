@@ -8,7 +8,8 @@ module.exports = {
   findById,
   getAllReviews,
   deleteReview,
-  getReviewByUserId,
+  getAllReviewsByUserId,
+  getByFoodType,
 };
 
 function find() {
@@ -31,17 +32,29 @@ function findBy(id) {
     .first();
 }
 
-function getAllReviews() {
+async function getAllReviews() {
   return db('reviews')
 }
 
-function deleteReview(id) {
+async function deleteReview(id) {
   return db('reviews')
     .where('id', id)
     .del();
 }
 
-function getReviewByUserId(id) {
+async function getAllReviewsByUserId(id) {
   return db('reviews')
     .where('userId', id)
+}
+
+async function findById(id) {
+  return db('reviews')
+    .where({ id })
+    .first();
+}
+
+async function getByFoodType(id, foodtype) {
+  return db('reviews')
+    .where('userId', id)
+    .where('foodType', foodtype)
 }
