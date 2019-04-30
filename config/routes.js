@@ -12,6 +12,7 @@ module.exports = server => {
   server.get('/api/user/:id/reviews/', authenticate, getReviews);
   server.get('/api/review/:id', authenticate, getReview)
   server.get('/api/review/:id/foodtype', authenticate, getReviewByFoodType)
+  server.post('/api/review/')
 };
 
 function register(req, res) {
@@ -31,8 +32,7 @@ function register(req, res) {
 function login(req, res) {
   const { username, password } = req.body;
 
-  users.findBy({ username })
-    .first()
+  users.findByUsername(username)
     .then( user => {
       if(user && bcrypt.compareSync(password, user.password)) {
         const token = tokenService.generateToken(user);
@@ -73,6 +73,10 @@ function getReview(req, res) {
 
 function getReviewByFoodType(req, res) {
   const { id } = req.params;
+  const { foodType } = req.body;
 
-  reviews.getByFoodType(id)
-}
+  reviews.getByFoodType(id, foodType)
+    .then(reviews => {
+      res.status(200).json(reviews.data.results)
+    })
+} 

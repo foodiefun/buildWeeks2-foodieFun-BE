@@ -11,7 +11,7 @@ module.exports = {
   getAllReviewsByUserId,
   getByFoodType,
 };
-
+ 
 function find() {
   return db('reviews');
 }
@@ -55,6 +55,8 @@ async function findById(id) {
 
 async function getByFoodType(id, foodtype) {
   return db('reviews')
-    .where('userId', id)
-    .where('foodType', foodtype)
+  .where({
+    userId: id,
+    foodType:  foodtype
+  })
 }
