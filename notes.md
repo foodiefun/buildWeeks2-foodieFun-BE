@@ -48,3 +48,22 @@ status codes:
 201 - successful post
 200 - successful put
 204 - successful delete
+
+
+FE Photo 
+
+// needed imports on FE
+import { Image, Transformation } from 'cloudinary-react';
+
+// ...
+  // render a review's image; replace the cloud name appropriately
+  <Image cloudName='dyfighlzd' publicId={review.photo}>
+    <Transformation
+      width="200"
+      height="200"
+      crop="fill"
+      gravity="auto"
+    />
+  </Image>
+
+  

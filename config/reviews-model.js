@@ -1,8 +1,8 @@
-const express = require('express');
-const db = require('../data/dbConfig.js');
+const express = require("express");
+const db = require("../data/dbConfig.js");
 
 module.exports = {
-  addReview,
+  add,
   find,
   findBy,
   findById,
@@ -10,53 +10,60 @@ module.exports = {
   deleteReview,
   getReviewsByUserId,
   getByFoodType,
+  addImage
 };
- 
+
+async function addImage(pid, reviewId) {
+  const photo = await db("reviews")
+  .where("id", reviewId)
+  .update({ photo: pid })
+
+  return findById(reviewId)
+}
+
 function find() {
-  return db('reviews');
+  return db("reviews");
 }
 
-function findBy(filter) {
-  return db('reviews').where(filter);
+async function findBy(filter) {
+  return await db("reviews").where(filter);
 }
 
-async function addReview(review) {
-  const [id] = await db('reviews').insert(review);
+async function add(review) {
+  const [id] = await db("reviews").insert(review);
 
   return findById(id);
 }
 
-function findBy(id) {
-  return db('reviews')
+async function findBy(id) {
+  return await db("reviews")
     .where({ id })
     .first();
 }
 
 async function getAllReviews() {
-  return db('reviews')
+  return await db("reviews");
 }
 
 async function deleteReview(id) {
-  return db('reviews')
-    .where('id', id)
+  return await db("reviews")
+    .where("id", id)
     .del();
 }
 
 async function getReviewsByUserId(id) {
-  return db('reviews')
-    .where('userId', id)
+  return db("reviews").where("userId", id);
 }
 
 async function findById(id) {
-  return db('reviews')
+  return await db("reviews")
     .where({ id })
     .first();
 }
 
 async function getByFoodType(id, foodtype) {
-  return db('reviews')
-  .where({
+  return await db("reviews").where({
     userId: id,
-    foodType:  foodtype
-  })
+    foodType: foodtype
+  });
 }
