@@ -9,10 +9,10 @@ const users = require('./users-model.js');
 module.exports = server => {
   server.post('/api/register', register);
   server.post('/api/login', login);
-  server.get('/api/user/:id/reviews/', authenticate, getReviews);
-  server.get('/api/review/:id', authenticate, getReview)
-  server.get('/api/review/:id/foodtype', authenticate, getReviewByFoodType)
-  server.post('/api/review/')
+   server.get('/api/user/:id', getReviews);
+  // server.get('/api/review/:id', authenticate, getReview)
+  // server.get('/api/review/:id/foodtype', authenticate, getReviewByFoodType)
+  // server.post('/api/review/')
 };
 
 function register(req, res) {
@@ -49,34 +49,35 @@ function login(req, res) {
 
 function getReviews(req, res) {
   const { id } = req.params;
-
-  reviews.getAllReviewsByUserId(id)
-    .then(review => {
-      res.status(200).json(review.data.results)
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Reviews', error: err });
-    });
-}
-
-function getReview(req, res) {
-  const { id } = req.params;
-
-  reviews.findById(id)
-    .then(review => {
-      res.status(200).json(review.data.results)
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Reviews', error: err });
-    });
-}
-
-function getReviewByFoodType(req, res) {
-  const { id } = req.params;
-  const { foodType } = req.body;
-
-  reviews.getByFoodType(id, foodType)
+  
+  reviews.getReviewsByUserId(id)
     .then(reviews => {
-      res.status(200).json(reviews.data.results)
+      res.status(200).json(reviews)
     })
-} 
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ message: 'Error Fetching Reviews', error: err });
+    });
+}
+
+// function getReview(req, res) {
+//   const { id } = req.params;
+
+//   reviews.findById(id)
+//     .then(review => {
+//       res.status(200).json(review.data.results)
+//     })
+//     .catch(err => {
+//       res.status(500).json({ message: 'Error Fetching Reviews', error: err });
+//     });
+// }
+
+// function getReviewByFoodType(req, res) {
+//   const { id } = req.params;
+//   const { foodType } = req.body;
+
+//   reviews.getByFoodType(id, foodType)
+//     .then(reviews => {
+//       res.status(200).json(reviews.data.results)
+//     })
+// } 

@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
     tbl.integer('price');
     tbl.string('date');
     tbl.string('restaurantInfo', 255);
+    tbl.boolean('favorite');
     tbl
     .integer('userId')
     .unsigned()

@@ -36,3 +36,48 @@ getByFoodType
 getByPrice
 getByRating
 
+reviews: [
+  {
+    id: 1,
+    restaurantName: "Archive",
+    photo: "",
+    foodName: "Chilean Sea Bass",
+    foodType: "Seafood",
+    comments: "Best bass I have ever eaten",
+    rating: 5,
+    price: 3,
+    date: "4-29-2019",
+    restaurantInfo: "12345 Main Street, Salem, Oregon 97303",
+    favorite: true,
+    userId: 1
+  },
+  {
+    id: 2,
+    restaurantName: "Guv Cup",
+    photo: "",
+    foodName: "Fish Tacos with Avocado",
+    foodType: "Mexican",
+    comments: "so so good",
+    rating: 4,
+    price: 2,
+    date: "4-30-2019",
+    restaurantInfo: "2345 Broadway, Salem, Oregon 97303",
+    favorite: false,
+    userId: 1
+  },
+  {
+    id: 3,
+    restaurantName: "Kolbys",
+    photo: "",
+    foodName: "Sliders",
+    foodType: "American",
+    comments: "great little burgers",
+    rating: 4,
+    price: 1,
+    date: "4-30-2019",
+    restaurantInfo: "235 Heather Lane, Salem, Oregon 97303",
+    favorite: false,
+    userId: 1
+  }
+]
+

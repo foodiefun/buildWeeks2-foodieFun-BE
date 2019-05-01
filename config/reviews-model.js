@@ -8,7 +8,7 @@ module.exports = {
   findById,
   getAllReviews,
   deleteReview,
-  getAllReviewsByUserId,
+  getReviewsByUserId,
   getByFoodType,
 };
  
@@ -42,7 +42,7 @@ async function deleteReview(id) {
     .del();
 }
 
-async function getAllReviewsByUserId(id) {
+async function getReviewsByUserId(id) {
   return db('reviews')
     .where('userId', id)
 }
