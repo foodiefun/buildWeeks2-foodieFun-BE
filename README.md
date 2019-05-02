@@ -28,56 +28,26 @@ date: string,
 restaurantInfo: string
 
 Database Helpers:
-get
-delete
-post
-update
-getByFoodType
-getByPrice
-getByRating
+add,
+  find,
+  findBy,
+  findById,
+  getAllReviews,
+  deleteReview,
+  getReviewsByUserId,
+  getByFoodType,
+  getByFoodRating,
+  getByFoodPrice,
+  addImage
 
-reviews: [
-  {
-    id: 1,
-    restaurantName: "Archive",
-    photo: "",
-    foodName: "Chilean Sea Bass",
-    foodType: "Seafood",
-    comments: "Best bass I have ever eaten",
-    rating: 5,
-    price: 3,
-    date: "4-29-2019",
-    restaurantInfo: "12345 Main Street, Salem, Oregon 97303",
-    favorite: true,
-    userId: 1
-  },
-  {
-    id: 2,
-    restaurantName: "Guv Cup",
-    photo: "",
-    foodName: "Fish Tacos with Avocado",
-    foodType: "Mexican",
-    comments: "so so good",
-    rating: 4,
-    price: 2,
-    date: "4-30-2019",
-    restaurantInfo: "2345 Broadway, Salem, Oregon 97303",
-    favorite: false,
-    userId: 1
-  },
-  {
-    id: 3,
-    restaurantName: "Kolbys",
-    photo: "",
-    foodName: "Sliders",
-    foodType: "American",
-    comments: "great little burgers",
-    rating: 4,
-    price: 1,
-    date: "4-30-2019",
-    restaurantInfo: "235 Heather Lane, Salem, Oregon 97303",
-    favorite: false,
-    userId: 1
-  }
-]
+Routes:
 
+/api/register // pass username password in an object
+/api/login    // same as above
+/api/user/:id/reviews  // pass user id and get all reviews for that user
+/api/user/review  // pass an object 
+/api/review/:id/images // pass image file 
+/api/review/:id //  get individual review by the review id (not the userId)
+/api/review/:id/rating  // get reviews by rating pass User id and rating value as an object (i.e. rating: [value])
+/api/review/:id/type // similar to above
+/api/review/:id/price // similar to above

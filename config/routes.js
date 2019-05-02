@@ -15,7 +15,7 @@ module.exports = server => {
   server.post("/api/user/review", authenticate, addReview);
   server.post('/api/review/:id/image', authenticate, formData.parse(), addPhoto)
   server.get('/api/review/:id', authenticate, getReview)
-  server.get('/api/review/:id/rating', authenticate, getByrating)
+  server.get('/api/review/:id/rating', authenticate, getByRating)
   server.get('/api/review/:id/type', authenticate, getByType)
   server.get('/api/review/:id/price', authenticate, getByPrice)
 };
