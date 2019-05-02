@@ -3,20 +3,21 @@ const bcrypt = require("bcryptjs");
 const formData = require('express-form-data');
 const cloudinary = require('cloudinary');
 
-
 const { authenticate } = require("../auth/authenticate");
 const tokenService = require("../auth/token-service.js");
 const reviews = require("./reviews-model.js");
 const users = require("./users-model.js");
 
 module.exports = server => {
-  server.post("/api/register", register);
-  server.post("/api/login", login);
+  server.post("/api/register", register); // username password
+  server.post("/api/login", login); // same as above
   server.get("/api/user/:id/reviews", authenticate, getReviews);
   server.post("/api/user/review", authenticate, addReview);
   server.post('/api/review/:id/images', authenticate, formData.parse(), addPhoto)
-  // server.get('/api/review/:id', authenticate, getReview)
-  // server.get('/api/review/:id/foodtype', authenticate, getReviewByFoodType)
+  server.get('/api/review/:id', authenticate, getReview)
+  server.get('/api/review/:id/rating', authenticate, getByrating)
+  server.get('/api/review/:id/rating', authenticate, getByRating)
+  server.get('/api/review/:id/price', authenticate, getByPrice)
 };
 
 function register(req, res) {
@@ -99,25 +100,56 @@ function addReview(req, res) {
   }
 
 
+// returns all reviews when passed in the user's id on the req.param (in the url)
+function getReview(req, res) {
+  const { id } = req.params;
 
-// function getReview(req, res) {
-//   const { id } = req.params;
+  reviews.findById(id)
+    .then(review => {
+      res.status(200).json(review)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error retrieving review', error: err });
+    });
+}
 
-//   reviews.findById(id)
-//     .then(review => {
-//       res.status(200).json(review.data.results)
-//     })
-//     .catch(err => {
-//       res.status(500).json({ message: 'Error Fetching Reviews', error: err });
-//     });
-// }
+// pass in the user's id on the req.param (in the url) and the foodrating object with the string "rating": "some food rating" in the object on the req.body
+function getByRating(req, res) {
+  const { id } = req.params;
+  const { rating } = req.body;
 
-// function getReviewByFoodType(req, res) {
-//   const { id } = req.params;
-//   const { foodType } = req.body;
+  reviews.getByFoodrating(id, rating)
+    .then(reviews => {
+      res.status(200).json(reviews)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error retrieving review', error: err });
+    });
+}
 
-//   reviews.getByFoodType(id, foodType)
-//     .then(reviews => {
-//       res.status(200).json(reviews.data.results)
-//     })
-// }
+function getByPrice(req, res) {
+  const { id } = req.params;
+  const { price } = req.body;
+
+  reviews.getByFoodPrice(id, price)
+    .then(reviews => {
+      res.status(200).json(reviews)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error retrieving review', error: err });
+    });
+}
+
+function getByType(req, res) {
+  const { id } = req.params;
+  const { type } = req.body;
+
+  reviews.getByFoodType(id, type)
+    .then(reviews => {
+      res.status(200).json(reviews)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Error retrieving review', error: err });
+    });
+}
+

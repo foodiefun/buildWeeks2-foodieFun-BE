@@ -10,6 +10,8 @@ module.exports = {
   deleteReview,
   getReviewsByUserId,
   getByFoodType,
+  getByFoodRating,
+  getByFoodPrice,
   addImage
 };
 
@@ -65,5 +67,19 @@ async function getByFoodType(id, foodtype) {
   return await db("reviews").where({
     userId: id,
     foodType: foodtype
+  });
+}
+
+async function getByFoodRating(id, ratingInput) {
+  return await db("reviews").where({
+    userId: id,
+    rating: ratingInput
+  });
+}
+
+async function getByFoodPrice(id, priceInput) {
+  return await db("reviews").where({
+    userId: id,
+    price: priceInput
   });
 }
