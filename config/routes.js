@@ -18,6 +18,7 @@ module.exports = server => {
   server.get('/api/review/:id/rating', authenticate, getByRating)
   server.get('/api/review/:id/type', authenticate, getByType)
   server.get('/api/review/:id/price', authenticate, getByPrice)
+  server.delete('/api/review/:id', authenticate, deleteReview)
 };
 
 function register(req, res) {
@@ -150,6 +151,20 @@ function getByType(req, res) {
     })
     .catch(err => {
       res.status(500).json({ message: 'Error retrieving review', error: err });
+    });
+}
+
+function deleteReview(req, res) {
+  const { id } = req.params;
+
+  reviews
+    .deleteFoodReview(id)
+    .then(review => {
+      res.status(200).json(review);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Error Fetching Reviews", error: err });
     });
 }
 

@@ -7,7 +7,7 @@ module.exports = {
   findBy,
   findById,
   getAllReviews,
-  deleteReview,
+  deleteFoodReview,
   getReviewsByUserId,
   getByFoodType,
   getByFoodRating,
@@ -47,7 +47,7 @@ async function getAllReviews() {
   return await db("reviews");
 }
 
-async function deleteReview(id) {
+async function deleteFoodReview(id) {
   return await db("reviews")
     .where("id", id)
     .del();
