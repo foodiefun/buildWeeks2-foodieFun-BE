@@ -87,6 +87,6 @@ async function getByFoodPrice(id, priceInput) {
 
 async function updateFoodReview(id, review) {
   return await db("reviews")
-    .insert("review")
+    .update("review")
     .where({id});
 }
