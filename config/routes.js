@@ -171,7 +171,7 @@ function deleteReview(req, res) {
 
 function updateReview(req, res) {
   const { id } = req.params;
-  const review = req.body;
+  const { review } = req.body;
 
   reviews.updateFoodReview(id, review)
     .then(rev => {
