@@ -169,12 +169,10 @@ function deleteReview(req, res) {
     });
 }
 
-function updateReview(req, res) {
-  const { id } = req.params;
-  const { review } = req.body;
-
-  reviews.updateFoodReview(id, review)
-    .then(rev => {
+async function updateReview(req, res) {
+  await reviews
+    .updateFoodReview(req.params.id, req.body)
+  .then(rev => {
       res.status(200).json(rev)
     })
     .catch(err => {
