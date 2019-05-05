@@ -85,8 +85,9 @@ async function getByFoodPrice(id, priceInput) {
   });
 }
 
-async function updateFoodReview(id, review) {
+async function updateFoodReview(id, changes) {
+  console.log("review in model", id, changes);
   return await db("reviews")
-    .update("review")
-    .where({id});
+  .where({ id })
+  .update(changes, '*');
 }
