@@ -12,7 +12,8 @@ module.exports = {
   getByFoodType,
   getByFoodRating,
   getByFoodPrice,
-  addImage
+  addImage,
+  updateFoodReview
 };
 
 async function addImage(pid, reviewId) {
@@ -82,4 +83,10 @@ async function getByFoodPrice(id, priceInput) {
     userId: id,
     price: priceInput
   });
+}
+
+async function updateFoodReview(id, review) {
+  return await db("reviews")
+    .insert("review")
+    .where({id});
 }
