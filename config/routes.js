@@ -11,15 +11,15 @@ const users = require("./users-model.js");
 module.exports = server => {
   server.post("/api/register", register); // username password
   server.post("/api/login", login); // same as above
-  server.get("/api/user/:id/reviews", authenticate, getReviews);
-  server.post("/api/user/review", authenticate, addReview);
-  server.post('/api/review/:id/image', authenticate, formData.parse(), addPhoto)
-  server.get('/api/review/:id', authenticate, getReview)
-  server.get('/api/review/:id/rating', authenticate, getByRating)
-  server.get('/api/review/:id/type', authenticate, getByType)
-  server.get('/api/review/:id/price', authenticate, getByPrice)
-  server.delete('/api/review/:id', authenticate, deleteReview)
-  server.put('/api/review/:id', authenticate, updateReview)
+  server.get("/api/user/:id/reviews", getReviews);
+  server.post("/api/user/review", addReview);
+  server.post('/api/review/:id/image', formData.parse(), addPhoto)
+  server.get('/api/review/:id', getReview)
+  server.get('/api/review/:id/rating', getByRating)
+  server.get('/api/review/:id/type', getByType)
+  server.get('/api/review/:id/price', getByPrice)
+  server.delete('/api/review/:id', deleteReview)
+  server.put('/api/review/:id', updateReview)
 };
 
 function register(req, res) {
